@@ -6,6 +6,8 @@
         public PlayersPage()
         {
             InitializeComponent();
+
+            BindingContext = ServiceLocator.ServiceProvider.GetService<ViewModels.PlayersViewModel>();
         }
 
     }
