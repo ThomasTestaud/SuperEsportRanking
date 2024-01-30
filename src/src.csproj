@@ -63,7 +63,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="PlayersPage.xaml.cs">
+	  <Compile Update="Views\PlayersPage.xaml.cs">
 	    <DependentUpon>PlayersPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="GamesPage.xaml.cs">
@@ -81,6 +81,10 @@
 	  <MauiXaml Update="ScoresPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 
 </Project>
