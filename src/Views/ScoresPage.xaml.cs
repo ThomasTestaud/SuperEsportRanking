@@ -6,6 +6,8 @@
         public ScoresPage()
         {
             InitializeComponent();
+
+            BindingContext = ServiceLocator.ServiceProvider.GetService<ViewModels.ScoresViewModel>();
         }
 
     }
