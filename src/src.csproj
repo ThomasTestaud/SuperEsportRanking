@@ -62,4 +62,25 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="PlayersPage.xaml.cs">
+	    <DependentUpon>PlayersPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="GamesPage.xaml.cs">
+	    <DependentUpon>GamesPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="ScoresPage.xaml.cs">
+	    <DependentUpon>ScoresPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="GamesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ScoresPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
