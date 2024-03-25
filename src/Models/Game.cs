@@ -11,11 +11,11 @@ namespace src.Models
         public int id { get; set; }
         public string name { get; set; }
         public DateTime date { get; set; }
-        public Team team1 { get; set; }
-        public Team team2 { get; set; }
+        public TeamWithPlayers team1 { get; set; }
+        public TeamWithPlayers team2 { get; set; }
         public int kills { get; set; }
 
-        public Game( int id, string name, DateTime date, Team team1, Team team2)
+        public Game( int id, string name, DateTime date, TeamWithPlayers team1, TeamWithPlayers team2)
         {
             this.id = id;
             this.name = name;

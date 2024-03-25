@@ -8,6 +8,11 @@ namespace src.Services
 {
     internal class GameService
     {
-        public GameService() { }
+        private Dictionary<int, Models.Game> _games = new Dictionary<int, Models.Game>();
+        
+        public void AddGame(Models.Game game)
+        {
+            _games.Add(game.id, game);
+        }
     }
 }
