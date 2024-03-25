@@ -14,11 +14,12 @@ namespace src.Models
         private string _name;
         private string _userName;
         private int _teamId;
-        public int id { 
+        public int id
+        {
             get => _id;
             set
             {
-                id = value;
+                _id = value;
                 OnPropertyChanged("id");
             }
         }

@@ -23,10 +23,6 @@
                     Command="{Binding OnAddNewTeam}"/>
 
             </HorizontalStackLayout>
-            <Label
-                Text="{Binding TeamName}"
-                HorizontalOptions="Center"
-                FontSize="Large" />
             <BoxView
                 HeightRequest="1"
                 BackgroundColor="Black"
@@ -43,7 +39,8 @@
                         WidthRequest="200" />
                     <Picker
                         Title="Equipe"
-                        ItemsSource="{Binding Teams}"
+                        ItemsSource="{Binding displayedTeams}"
+                        ItemDisplayBinding="{Binding name}"
                         SelectedItem="{Binding TeamSelected}"
                         WidthRequest="200" />
                     <Button
@@ -75,7 +72,7 @@
                             <Label
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Text="{Binding Name}"
+                                Text="{Binding name}"
                                 VerticalOptions="Center"/>
                             <Label
                                 Grid.Row="1"
@@ -86,7 +83,13 @@
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Text="{Binding UserName}"
+                                Text="{Binding userName}"
+                                VerticalOptions="Center"/>
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Equipe :"
+                                FontAttributes="Bold"
                                 VerticalOptions="Center"/>
                         </Grid>
                     </DataTemplate>
