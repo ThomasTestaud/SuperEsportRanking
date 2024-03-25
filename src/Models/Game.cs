@@ -10,6 +10,7 @@ namespace src.Models
         private string _name;
         private DateTime _date;
         private int _score;
+        private List<Player> _players;
 
         public int id
         {
@@ -51,46 +52,6 @@ namespace src.Models
             }
         }
 
-        public Game(int id, string name, DateTime date, int score)
-        {
-            this._id = id;
-            this._name = name;
-            this._date = date;
-            this._score = score;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public class GameWithTeams : Game
-    {
-        private Team _teams;
-
-        public Team teams
-        {
-            get => _teams;
-            set
-            {
-                _teams = value;
-                OnPropertyChanged(nameof(teams));
-            }
-        }
-
-        public GameWithTeams(int id, string name, DateTime date, int score, Team teams) : base(id, name, date, score)
-        {
-            this._teams = teams;
-        }
-    }
-
-    public class GameWithPlayers : Game
-    {
-        private List<Player> _players;
-
         public List<Player> players
         {
             get => _players;
@@ -101,9 +62,21 @@ namespace src.Models
             }
         }
 
-        public GameWithPlayers(int id, string name, DateTime date, int score, List<Player> players) : base(id, name, date, score)
+        public Game(int id, string name, DateTime date, int score, List<Player> players)
         {
+            this._id = id;
+            this._name = name;
+            this._date = date;
+            this._score = score;
             this._players = players;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
+
 }

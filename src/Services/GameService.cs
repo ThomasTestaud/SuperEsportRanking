@@ -11,13 +11,9 @@ namespace src.Services
     {
         private Dictionary<int, Game> _games = new Dictionary<int, Game>();
         
-        public void AddTeamGame(string name, DateTime date, Team team, int score)
+        public void AddTeamGame(string name, DateTime date, List<Player> players, int score)
         {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
-
-            TeamWithPlayers teamWithPlayers = teamService.GetTeam(team.id);
-
-            _games.Add(_games.Count + 1, new GameWithTeams(_games.Count + 1, name, date, score, teamWithPlayers));
+            _games.Add(_games.Count + 1, new Game(_games.Count + 1, name, date, score, players));
         }
 
         public List<Game> GetGames()
