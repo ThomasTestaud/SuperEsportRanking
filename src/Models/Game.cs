@@ -1,31 +1,109 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace src.Models
 {
-    public class Game
+    public class Game : INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public DateTime date { get; set; }
-        public TeamWithPlayers team1 { get; set; }
-        public TeamWithPlayers team2 { get; set; }
-        public int killsTeam1 { get; set; }
+        private int _id;
+        private string _name;
+        private DateTime _date;
+        private int _score;
 
-        public int killsTeam2 { get; set; }
-
-        public Game( int id, string name, DateTime date, TeamWithPlayers team1, TeamWithPlayers team2, int killsTeam1, int killsTeam2)
+        public int id
         {
-            this.id = id;
-            this.name = name;
-            this.date = date;
-            this.team1 = team1;
-            this.team2 = team2;
-            this.killsTeam1 = killsTeam1;
-            this.killsTeam2 = killsTeam2;
-        }   
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged(nameof(id));
+            }
+        }
+
+        public string name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(name));
+            }
+        }
+
+        public DateTime date
+        {
+            get => _date;
+            set
+            {
+                _date = value;
+                OnPropertyChanged(nameof(date));
+            }
+        }
+
+        public int score
+        {
+            get => _score;
+            set
+            {
+                _score = value;
+                OnPropertyChanged(nameof(score));
+            }
+        }
+
+        public Game(int id, string name, DateTime date, int score)
+        {
+            this._id = id;
+            this._name = name;
+            this._date = date;
+            this._score = score;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class GameWithTeams : Game
+    {
+        private Team _teams;
+
+        public Team teams
+        {
+            get => _teams;
+            set
+            {
+                _teams = value;
+                OnPropertyChanged(nameof(teams));
+            }
+        }
+
+        public GameWithTeams(int id, string name, DateTime date, int score, Team teams) : base(id, name, date, score)
+        {
+            this._teams = teams;
+        }
+    }
+
+    public class GameWithPlayers : Game
+    {
+        private List<Player> _players;
+
+        public List<Player> players
+        {
+            get => _players;
+            set
+            {
+                _players = value;
+                OnPropertyChanged(nameof(players));
+            }
+        }
+
+        public GameWithPlayers(int id, string name, DateTime date, int score, List<Player> players) : base(id, name, date, score)
+        {
+            this._players = players;
+        }
     }
 }
