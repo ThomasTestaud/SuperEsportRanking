@@ -17,16 +17,16 @@
             services.AddSingleton<Services.GameService>();
             services.AddSingleton<Services.PlayerService>();
             services.AddSingleton<Services.TeamService>();
-
-            services.AddSingleton<Models.Game>();
-            services.AddSingleton<Models.Player>();
-            services.AddSingleton<Models.Team>();
+            services.AddSingleton<Services.ScoreService>();
 
             var serviceProvider = services.BuildServiceProvider();
+
+            var gameService = ServiceLocator.ServiceProvider.GetService<Services.GameService>();
+            var teamService = ServiceLocator.ServiceProvider.GetService<Services.TeamService>();
+            var playerService = ServiceLocator.ServiceProvider.GetService<Services.PlayerService>();
+            var scoreService = ServiceLocator.ServiceProvider.GetService<Services.ScoreService>();
+
             ServiceLocator.Initialize(serviceProvider);
-
-            //var gameService = ServiceLocator.ServiceProvider.GetService<Services.GameService>();
-
         }
     }
 }
