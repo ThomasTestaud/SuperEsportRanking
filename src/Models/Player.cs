@@ -1,17 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace src.Models
 {
-    public class Player
+    public class Player : INotifyPropertyChanged
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string userName { get; set; }
-        public int teamId { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private int _id;
+        private string _name;
+        private string _userName;
+        private int _teamId;
+        public int id { 
+            get => _id;
+            set
+            {
+                id = value;
+                OnPropertyChanged("id");
+            }
+        }
+
+        public string name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged("name");
+            }
+        }
+        public string userName
+        {
+            get => _userName;
+            set
+            {
+                _userName = value;
+                OnPropertyChanged("userName");
+            }
+        }
+
+        public int teamId
+        {
+            get => _teamId;
+            set
+            {
+                _teamId = value;
+                OnPropertyChanged("teamId");
+            }
+        }
 
         public Player(int id, string name, string userName, int teamId)
         {
@@ -19,6 +58,11 @@ namespace src.Models
             this.name = name;
             this.userName = userName;
             this.teamId = teamId;
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }
