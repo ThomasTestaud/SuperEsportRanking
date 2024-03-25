@@ -13,13 +13,11 @@ namespace src.Models
         public string userName { get; set; }
         public int teamId { get; set; }
 
-        public Player(int id, string name, string userName, int gamesPlayed, int gamesWon, int teamId)
+        public Player(int id, string name, string userName, int teamId)
         {
             this.id = id;
             this.name = name;
             this.userName = userName;
-            this.gamesPlayed = gamesPlayed;
-            this.gamesWon = gamesWon;
             this.teamId = teamId;
         }
 
