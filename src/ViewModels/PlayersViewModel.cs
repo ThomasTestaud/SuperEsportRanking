@@ -10,7 +10,7 @@ namespace src.ViewModels
 
     {
         public ICommand OnAddNewTeam { get; }
-        // public List<Team> teams = ;
+        public ICommand OnAddNewPlayer { get; }
         public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -19,6 +19,7 @@ namespace src.ViewModels
         private Team _teamSelected;
         private string _teamName;
         public ObservableCollection<Player> displayedPlayers { get; set; }
+        public ObservableCollection<Team> displayedTeams { get; set; }
 
         public string PlayerName
         {
@@ -59,29 +60,35 @@ namespace src.ViewModels
         public PlayersViewModel() {
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
+            teamService.AddTeam("Team 1");
+            teamService.AddTeam("Team 2");
             OnAddNewTeam = new Command(AddNewTeam);
+            OnAddNewPlayer = new Command(AddPlayer);
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAllPlayers());
+            displayedTeams = new ObservableCollection<Team>(teamService.GetTeams());
         }
 
         public void AddNewTeam()
         {
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
-            teamService.AddTeam(_teamName);
+            teamService.AddTeam(TeamName);
+            displayedTeams = new ObservableCollection<Team>(teamService.GetTeams());
+            OnPropertyChanged("displayedTeams");
         }
 
-        /*
+
         public List<Team> GetTeams()
         {
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             return teamService.GetTeams();
-        } */
+        }
     
-        public void addPlayer()
+        public void AddPlayer()
         {
             PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
             playerService.AddPlayer(_playerName, _playerUserName, _teamSelected.id);
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAllPlayers());
-            OnPropertyChanged("players");
+            OnPropertyChanged("displayedPlayers");
         }
         protected void OnPropertyChanged(string name)
         {
