@@ -17,9 +17,9 @@ namespace src.Services
 
             var games = gameService.GetGames();
 
-            var bestRatio = games.Max(g => g.killsTeam1 / g.killsTeam2);
 
-            return games.Where(g => g.killsTeam1 / g.killsTeam2 == bestRatio).ToList();
+
+            return games;
         }
     }
 }

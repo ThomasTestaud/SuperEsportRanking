@@ -21,10 +21,7 @@
 
             var serviceProvider = services.BuildServiceProvider();
 
-            var gameService = ServiceLocator.ServiceProvider.GetService<Services.GameService>();
-            var teamService = ServiceLocator.ServiceProvider.GetService<Services.TeamService>();
-            var playerService = ServiceLocator.ServiceProvider.GetService<Services.PlayerService>();
-            var scoreService = ServiceLocator.ServiceProvider.GetService<Services.ScoreService>();
+            
 
             ServiceLocator.Initialize(serviceProvider);
         }

@@ -12,20 +12,31 @@ namespace src.Services
     {
         private Dictionary<int, Team> _teams = new Dictionary<int, Team>();
 
-        public void AddTeam(string name)
+        public Team AddTeam(string name)
         {
             int id = _teams.Count + 1;
             Team team = new Team(id, name);
             _teams.Add(team.id, team);
+            return team;
         }
 
         public TeamWithPlayers GetTeam(int id)
         {
             PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
 
+            if (!_teams.ContainsKey(id))
+            {
+                return null;
+            }
+
             List<Player> players = playerService.GetPlayersForTeam(id);
 
             return new TeamWithPlayers(_teams[id].id, _teams[id].name, players);
+        }
+
+        public List<Team> GetTeams()
+        {
+               return _teams.Values.ToList();
         }
 
         public List<TeamWithPlayers> GetTeamsWithPLayers()
