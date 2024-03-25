@@ -11,8 +11,6 @@ namespace src.Models
         public int id { get; set; }
         public string name { get; set; }
         public string userName { get; set; }
-        public int gamesPlayed { get; set; }
-        public int gamesWon { get; set; }
         public int teamId { get; set; }
 
         public Player(int id, string name, string userName, int gamesPlayed, int gamesWon, int teamId)
