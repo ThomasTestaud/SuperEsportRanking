@@ -16,8 +16,20 @@
 
 
     <ScrollView>
-        
-        <Grid
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <HorizontalStackLayout
+                Padding="10"
+                Spacing="10">
+                            <Button
+                Text="Scores page"
+                Command="{Binding goToScoresCommand}" />
+                            <Button
+                Text="Players page"
+                Command="{Binding goToPlayersCommand}" />
+            </HorizontalStackLayout>
+            <Grid
             ColumnDefinitions="Auto, *"
             Padding="30,0"
             RowSpacing="25"
@@ -27,13 +39,6 @@
                 Grid.Column="0"
                 Spacing="15">
 
-                <Button
-                    Text="Page des joueurs"
-                    Command="{Binding goToPlayersCommand}" />
-                <Button
-                    Text="Page des scores"
-                    Command="{Binding goToScoresCommand}" />
-                
                 <Label Text="{Binding newGameTeam.name}"/>
                 
                 <Entry Text="{Binding newGameName}" Placeholder="Game Name"/>
@@ -143,5 +148,6 @@
 
             </VerticalStackLayout>
         </Grid>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

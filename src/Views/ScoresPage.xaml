@@ -7,19 +7,22 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            
+
+            <HorizontalStackLayout
+                Padding="10"
+                Spacing="10">
+                            <Button
+                Text="Scores page"
+                Command="{Binding goToScoresCommand}" />
+                            <Button
+                Text="Games page"
+                Command="{Binding goToGamesCommand}" />
+            </HorizontalStackLayout>
+
             <Label
                 Text="Classements"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
-
-            <Button
-                Text="Page des jeux"
-                Command="{Binding goToGamesCommand}" />
-
-            <Button
-                Text="Page des joueurs"
-                Command="{Binding goToPlayersCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>
