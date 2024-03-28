@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace src.Models
 {
-    public class Game : INotifyPropertyChanged
+    internal class Game : Model
     {
         private int _id;
         private string _name;
@@ -69,13 +69,6 @@ namespace src.Models
             this._date = date;
             this._score = score;
             this._players = players;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
