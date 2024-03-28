@@ -22,8 +22,8 @@ namespace src.ViewModels
         
         public GamesViewModel()
         {
-            displayedGames = new ObservableCollection<Game>(gameService.GetGames());
-            availableTeams = new ObservableCollection<Team>(teamService.GetTeams());
+            displayedGames = new ObservableCollection<Game>(gameService.GetAll());
+            availableTeams = new ObservableCollection<Team>(teamService.GetAll());
 
             AddGameCommand = new Command(AddGame);
         }
@@ -43,7 +43,7 @@ namespace src.ViewModels
 
         private void AddGame()
         {
-            TeamWithPlayers teamWithPlayers = teamService.GetTeam(newGameTeam.id);
+            TeamWithPlayers teamWithPlayers = teamService.GetTeamWithPlayers(newGameTeam.id);
             List<Player> players = teamWithPlayers.players;
 
             gameService.Add(new Game(newGameName, newGameDate,newGameScore, players ));

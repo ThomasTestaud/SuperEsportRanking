@@ -37,8 +37,8 @@ namespace src
             playerService.Add(new Player("Player 1", "player1", team1.id));
             playerService.Add(new Player("Player 2", "player2", team1.id));
 
-            playerService.AddPlayer("Player 3", "player3", team2.id);
-            playerService.AddPlayer("Player 4", "player4", team2.id);
+            playerService.Add(new Player("Player 3", "player3", team2.id));
+            playerService.Add(new Player("Player 4", "player4", team2.id));
 
 
             TeamWithPlayers teamWithPlayers = teamService.GetTeamWithPlayers(team1.id);
