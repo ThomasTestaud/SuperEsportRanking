@@ -20,5 +20,17 @@ namespace src.Services
         {
             return _games.Values.ToList();
         }
+
+        public void DeleteGame(int id)
+        {
+            _games.Remove(id);
+        }
+
+        public void UpdateGame(int id, string name, DateTime date, int score)
+        {
+            _games[id].name = name;
+            _games[id].date = date;
+            _games[id].score = score;
+        }
     }
 }
