@@ -3,6 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="src.GamesPage"
              xmlns:local="clr-namespace:src.ViewModels">
+    
+    <ContentPage.Resources>
+    <ResourceDictionary>
+        <Style x:Key="InvisiblePickerStyle" TargetType="Picker">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+    </ResourceDictionary>
+</ContentPage.Resources>
+
 
     <ScrollView>
         <Grid
@@ -15,16 +24,49 @@
                 Grid.Column="0"
                 Spacing="15">
                 <Label Text="{Binding newGameTeam.name}"/>
+                
                 <Entry Text="{Binding newGameName}" Placeholder="Game Name"/>
+                
                 <DatePicker Date="{Binding newGameDate}"/>
-                <Entry Text="{Binding newGameScore}" Placeholder="Game Score"/>
-                <Picker Title="Team"
+
+                <Label Text="Is this a team game ?"/>
+                <Switch IsToggled="{Binding gameType}"/>
+
+                <Picker Title="Team 1"
                         ItemsSource="{Binding availableTeams}"
                         ItemDisplayBinding="{Binding name}"
-                        SelectedItem="{Binding newGameTeam}"/>
+                        SelectedItem="{Binding newGameTeam1}"
+                        IsVisible="{Binding gameType}"/>
+
+                <Picker Title="Player 1"
+                        ItemsSource="{Binding newPlayer1}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding newGameTeam1}"
+                        IsVisible="{Binding oGameType}"/>
+
+                <Entry Text="{Binding score1}" Placeholder="Game Score 1"/>
+                
+                <Picker Title="Team 2"
+                        ItemsSource="{Binding availableTeams}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding newGameTeam2}"
+                        IsVisible="{Binding gameType}"/>
+
+                <Picker Title="Player 2"
+                        ItemsSource="{Binding newPlayer2}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding newGameTeam2}"
+                        IsVisible="{Binding oGameType}"/>
+
+
+                <Entry Text="{Binding score2}" Placeholder="Game Score 2"/>
+                
+                
+                
                 <Button Text="Ajouter une partie"
                         Command="{Binding AddGameCommand}"
                         Style="{StaticResource ButtonPrimary}" />
+                
             </VerticalStackLayout>
 
             <VerticalStackLayout
@@ -35,8 +77,8 @@
                     Style="{StaticResource Headline}"
                     SemanticProperties.HeadingLevel="Level1" />
                 <CollectionView
-    ItemsSource="{Binding displayedGames}"
-    SelectionMode="Single">
+                    ItemsSource="{Binding displayedGames}"
+                    SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid Padding="10">
@@ -45,6 +87,10 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
@@ -52,31 +98,24 @@
                                     Style="{StaticResource Body}" />
                                 <Label
                                     Grid.Column="1"
-                                    Text="{Binding score}"
+                                    Text="{Binding date}"
                                     Style="{StaticResource Body}" />
                                 <Label
                                     Grid.Column="2"
-                                    Text="{Binding date}"
+                                    Text="{Binding team1}"
                                     Style="{StaticResource Body}" />
-                                <ScrollView
+                                <Label
                                     Grid.Column="3"
-                                    Orientation="Horizontal">
-                                    <StackLayout
-                                        Orientation="Horizontal"
-                                        Spacing="5">
-                                        <CollectionView
-                                            ItemsSource="{Binding players}"
-                                            SelectionMode="None">
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Label
-                                                        Text="{Binding name}"
-                                                        Style="{StaticResource Body}" />
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                    </StackLayout>
-                                </ScrollView>
+                                    Text="{Binding score1}"
+                                    Style="{StaticResource Body}" />
+                                <Label
+                                    Grid.Column="4"
+                                    Text="{Binding team2}"
+                                    Style="{StaticResource Body}" />
+                                <Label
+                                    Grid.Column="5"
+                                    Text="{Binding score2}"
+                                    Style="{StaticResource Body}" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

@@ -45,8 +45,8 @@ namespace src
             TeamWithPlayers teamWithPlayers = teamService.GetTeam(team1.id);
             List<Player> players = teamWithPlayers.players;
 
-            gameService.AddTeamGame("Game 1", DateTime.Now, players, 10);
-            gameService.AddTeamGame("Game 2", DateTime.Now, players, 5);
+            //gameService.AddGame("Game 1", DateTime.Now, players, 10);
+            //gameService.AddGame("Game 2", DateTime.Now, players, 5);
         }
     }
 }

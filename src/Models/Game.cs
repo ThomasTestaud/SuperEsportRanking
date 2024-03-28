@@ -9,8 +9,11 @@ namespace src.Models
         private int _id;
         private string _name;
         private DateTime _date;
-        private int _score;
-        private List<Player> _players;
+        private int _score1;
+        private int _score2;
+        private bool _teamGame;
+        private string _team1;
+        private string _team2;
 
         public int id
         {
@@ -42,33 +45,66 @@ namespace src.Models
             }
         }
 
-        public int score
+        public int score1
         {
-            get => _score;
+            get => _score1;
             set
             {
-                _score = value;
-                OnPropertyChanged(nameof(score));
+                _score1 = value;
+                OnPropertyChanged(nameof(score1));
+            }
+        }
+        
+        public int score2
+        {
+            get => _score2;
+            set
+            {
+                _score2 = value;
+                OnPropertyChanged(nameof(score2));
             }
         }
 
-        public List<Player> players
+        public bool teamGame
         {
-            get => _players;
+            get => _teamGame;
             set
             {
-                _players = value;
-                OnPropertyChanged(nameof(players));
+                _teamGame = value;
+                OnPropertyChanged(nameof(teamGame));
             }
         }
 
-        public Game(int id, string name, DateTime date, int score, List<Player> players)
+        public string team1
         {
-            this._id = id;
-            this._name = name;
-            this._date = date;
-            this._score = score;
-            this._players = players;
+            get => _team1;
+            set
+            {
+                _team1 = value;
+                OnPropertyChanged(nameof(team1));
+            }
+        }
+
+        public string team2
+        {
+            get => _team2;
+            set
+            {
+                _team2 = value;
+                OnPropertyChanged(nameof(team2));
+            }
+        }
+
+        public Game(int id, string name, DateTime date, int score1, int score2, bool teamGame, string team1, string team2) : base()
+        {
+            this.id = id;
+            this.name = name;
+            this.date = date;
+            this.score1 = score1;
+            this.score2 = score2;
+            _teamGame = teamGame;
+            _team1 = team1;
+            _team2 = team2;
         }
     }
 
