@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="src.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:src"
-    Shell.FlyoutBehavior="Disabled"
-    Title="src">
+<Shell x:Class="src.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:src"
+       Shell.FlyoutBehavior="Disabled"
+       Title="src">
 
-    <TabBar>
-
-        <Tab Title="Classements">
+    <ShellItem Route="main">
+        <ShellSection Route="section">
             <ShellContent Route="ScoresPage" ContentTemplate="{DataTemplate local:ScoresPage}" />
-        </Tab>
-
-        <Tab Title="Saisie des joueurs et équipes">
             <ShellContent Route="PlayersPage" ContentTemplate="{DataTemplate local:PlayersPage}" />
-        </Tab>
-
-        <Tab Title="Parties et stats">
             <ShellContent Route="GamesPage" ContentTemplate="{DataTemplate local:GamesPage}" />
-        </Tab>
+        </ShellSection>
+    </ShellItem>
 
-    </TabBar>
+    <FlyoutItem Title="Menu">
+        <Tab>
+            <ShellContent Title="Classements" Route="ScoresPage" />
+            <ShellContent Title="Saisie des joueurs et équipes" Route="PlayersPage" />
+            <ShellContent Title="Parties et stats" Route="GamesPage" />
+        </Tab>
+    </FlyoutItem>
 
 </Shell>

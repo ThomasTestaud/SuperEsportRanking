@@ -7,7 +7,12 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-
+            <Button
+                Text="Page des scores"
+                Command="{Binding goToScoresCommand}" />
+            <Button
+                Text="Page des parties"
+                Command="{Binding goToGamesCommand}" />
             <Label
                 Text="Saisie joueurs et équipes"
                 Margin="25"

@@ -11,8 +11,6 @@ using System.Xml.Linq;
 
 namespace src.ViewModels
 {
-
-
     internal class GamesViewModel : ViewModel
     {
         public ObservableCollection<Game> displayedGames { get; set; }
@@ -36,15 +34,39 @@ namespace src.ViewModels
         public int score1 { get; set; }
         public int score2 { get; set; }
         public ICommand AddGameCommand { get; }
+        public ICommand goToPlayersCommand { get; }
+        public ICommand goToScoresCommand { get; }
         
         public GamesViewModel()
+        {
+            loadAllCollections();
+
+            AddGameCommand = new Command(AddGame);
+            goToPlayersCommand = new Command(goToPlayers);
+            goToScoresCommand = new Command(goToScores);
+
+
+            gameType = true;
+        }
+
+        public void loadAllCollections()
         {
             displayedGames = new ObservableCollection<Game>(gameService.GetAll());
             availableTeams = new ObservableCollection<Team>(teamService.GetAll());
             availablePlayers = new ObservableCollection<Player>(playerService.GetAll());
+            OnPropertyChanged(nameof(displayedGames));
+            OnPropertyChanged(nameof(availableTeams));
+            OnPropertyChanged(nameof(availablePlayers));
+        }
 
+        async public void goToScores()
+        {
+            await Shell.Current.GoToAsync("//main/section/ScoresPage");
+        }
 
-            AddGameCommand = new Command(AddGame);
+        async public void goToPlayers()
+        {
+            await Shell.Current.GoToAsync("//main/section/PlayersPage");
         }
 
         public bool gameType
@@ -55,8 +77,8 @@ namespace src.ViewModels
                 if (_gameType != value)
                 {
                     _gameType = value;
+                    oGameType = !value;
                     OnPropertyChanged(nameof(gameType));
-                    this.oGameType = !value;
                 }
             }
         }
@@ -150,5 +172,6 @@ namespace src.ViewModels
             OnPropertyChanged(nameof(displayedGames));
         }
 
+        public ICommand DeleteGameCommand { get; }
     }
 }
