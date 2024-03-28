@@ -12,6 +12,15 @@
                 Text="Classements"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
+
+            <Button
+                Text="Page des jeux"
+                Command="{Binding goToGamesCommand}" />
+
+            <Button
+                Text="Page des joueurs"
+                Command="{Binding goToPlayersCommand}" />
+
         </VerticalStackLayout>
     </ScrollView>
 

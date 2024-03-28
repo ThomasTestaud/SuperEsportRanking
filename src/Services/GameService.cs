@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace src.Services
 {
+
     internal class GameService : IService<Game>
     {
         private Dictionary<int, Game> _games = new Dictionary<int, Game>();
-        
+
         public Game Add(Game game)
         {
             game.SetId(_games.Count + 1);

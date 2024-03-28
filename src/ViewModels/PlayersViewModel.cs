@@ -69,6 +69,9 @@ namespace src.ViewModels
                 OnPropertyChanged("TeamName");
             }
         }
+
+        public ICommand goToScoresCommand { get; }
+        public ICommand goToGamesCommand { get; }
         public PlayersViewModel() {
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
@@ -78,6 +81,20 @@ namespace src.ViewModels
             OnDeleteTeam = new Command(DeleteTeam);
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
             displayedTeams = new ObservableCollection<Team>(teamService.GetAll());
+            goToScoresCommand = new Command(goToScores);
+            goToGamesCommand = new Command(goToGames);
+        }
+
+        async public void goToScores()
+        {
+            await Shell.Current.GoToAsync("//main/section/ScoresPage");
+        }
+
+        async public void goToGames()
+        {
+            GamesViewModel gamesViewModel = ServiceLocator.ServiceProvider.GetService<GamesViewModel>();
+            gamesViewModel.loadAllCollections();
+            await Shell.Current.GoToAsync("//main/section/GamesPage");
         }
 
         public void AddNewTeam()

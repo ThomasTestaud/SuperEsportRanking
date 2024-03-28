@@ -2,9 +2,21 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="src.GamesPage"
-             xmlns:local="clr-namespace:src.ViewModels">
+             xmlns:local="clr-namespace:src.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="InvisiblePickerStyle" TargetType="Picker">
+                <Setter Property="Opacity" Value="0"/>
+            </Style>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
 
     <ScrollView>
+        
         <Grid
             ColumnDefinitions="Auto, *"
             Padding="30,0"
@@ -14,17 +26,58 @@
             <VerticalStackLayout
                 Grid.Column="0"
                 Spacing="15">
+
+                <Button
+                    Text="Page des joueurs"
+                    Command="{Binding goToPlayersCommand}" />
+                <Button
+                    Text="Page des scores"
+                    Command="{Binding goToScoresCommand}" />
+                
                 <Label Text="{Binding newGameTeam.name}"/>
+                
                 <Entry Text="{Binding newGameName}" Placeholder="Game Name"/>
+                
                 <DatePicker Date="{Binding newGameDate}"/>
-                <Entry Text="{Binding newGameScore}" Placeholder="Game Score"/>
-                <Picker Title="Team"
+
+                <Label Text="Is this a team game ?"/>
+                <Switch IsToggled="{Binding gameType}"/>
+
+                <Picker Title="Team 1"
                         ItemsSource="{Binding availableTeams}"
                         ItemDisplayBinding="{Binding name}"
-                        SelectedItem="{Binding newGameTeam}"/>
+                        SelectedItem="{Binding newGameTeam1}"
+                        IsVisible="{Binding gameType}"/>
+
+                <Picker Title="Player 1"
+                        ItemsSource="{Binding availablePlayers}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding newPlayer1}"
+                        IsVisible="{Binding gameType, Converter={StaticResource InvertedBoolConverter}}"/>
+
+                <Entry Text="{Binding score1}" Placeholder="Game Score 1"/>
+                
+                <Picker Title="Team 2"
+                        ItemsSource="{Binding availableTeams}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding newGameTeam2}"
+                        IsVisible="{Binding gameType}"/>
+
+                <Picker Title="Player 2"
+                        ItemsSource="{Binding availablePlayers}"
+                        ItemDisplayBinding="{Binding name}"
+                        SelectedItem="{Binding newPlayer2}"
+                        IsVisible="{Binding gameType, Converter={StaticResource InvertedBoolConverter}}"/>
+
+
+                <Entry Text="{Binding score2}" Placeholder="Game Score 2"/>
+                
+                
+                
                 <Button Text="Ajouter une partie"
                         Command="{Binding AddGameCommand}"
                         Style="{StaticResource ButtonPrimary}" />
+                
             </VerticalStackLayout>
 
             <VerticalStackLayout
@@ -35,12 +88,15 @@
                     Style="{StaticResource Headline}"
                     SemanticProperties.HeadingLevel="Level1" />
                 <CollectionView
-    ItemsSource="{Binding displayedGames}"
-    SelectionMode="Single">
+                    ItemsSource="{Binding displayedGames}"
+                    SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
@@ -52,31 +108,34 @@
                                     Style="{StaticResource Body}" />
                                 <Label
                                     Grid.Column="1"
-                                    Text="{Binding score}"
+                                    Text="{Binding date}"
                                     Style="{StaticResource Body}" />
                                 <Label
                                     Grid.Column="2"
-                                    Text="{Binding date}"
-                                    Style="{StaticResource Body}" />
-                                <ScrollView
+                                    Text="Solo game"
+                                    Style="{StaticResource Body}" 
+                                    IsVisible="{Binding teamGame, Converter={StaticResource InvertedBoolConverter}}" />
+                                <Label
+                                    Grid.Column="2"
+                                    Text="Team game"
+                                    Style="{StaticResource Body}" 
+                                    IsVisible="{Binding teamGame}" />
+                                <Label
                                     Grid.Column="3"
-                                    Orientation="Horizontal">
-                                    <StackLayout
-                                        Orientation="Horizontal"
-                                        Spacing="5">
-                                        <CollectionView
-                                            ItemsSource="{Binding players}"
-                                            SelectionMode="None">
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Label
-                                                        Text="{Binding name}"
-                                                        Style="{StaticResource Body}" />
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                    </StackLayout>
-                                </ScrollView>
+                                    Text="{Binding team1}"
+                                    Style="{StaticResource Body}" />
+                                <Label
+                                    Grid.Column="4"
+                                    Text="{Binding score1}"
+                                    Style="{StaticResource Body}" />
+                                <Label
+                                    Grid.Column="5"
+                                    Text="{Binding team2}"
+                                    Style="{StaticResource Body}" />
+                                <Label
+                                    Grid.Column="6"
+                                    Text="{Binding score2}"
+                                    Style="{StaticResource Body}" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
