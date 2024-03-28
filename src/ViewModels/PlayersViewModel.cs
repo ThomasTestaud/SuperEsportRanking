@@ -11,15 +11,28 @@ namespace src.ViewModels
     {
         public ICommand OnAddNewTeam { get; }
         public ICommand OnAddNewPlayer { get; }
+        public ICommand OnDeletePlayer { get; private set; }
+        public ICommand OnDeleteTeam { get; private set; }
 
 
         private string _playerName;
         private string _playerUserName;
         private Team _teamSelected;
         private string _teamName;
+        private Player _playerSelected;
         public ObservableCollection<Player> displayedPlayers { get; set; }
         public ObservableCollection<Team> displayedTeams { get; set; }
 
+
+        public Player PlayerSelected
+        {
+            get => _playerSelected;
+            set
+            {
+                _playerSelected = value;
+                OnPropertyChanged("PlayerSelected");
+            }
+        }
         public string PlayerName
         {
             get => _playerName;
@@ -60,10 +73,17 @@ namespace src.ViewModels
         public ICommand goToScoresCommand { get; }
         public ICommand goToGamesCommand { get; }
         public PlayersViewModel() {
+<<<<<<< HEAD
             teamService.Add(TeamSelected = new Team("Team 1"));
             teamService.Add(TeamSelected = new Team("Team 2"));
+=======
+            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
+            PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
+>>>>>>> 2c7b16c94387df37a2370034e3981206fe3bbc41
             OnAddNewTeam = new Command(AddNewTeam);
             OnAddNewPlayer = new Command(AddPlayer);
+            OnDeletePlayer = new Command(DeletePlayer);
+            OnDeleteTeam = new Command(DeleteTeam);
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
             displayedTeams = new ObservableCollection<Team>(teamService.GetAll());
             goToScoresCommand = new Command(goToScores);
@@ -100,6 +120,27 @@ namespace src.ViewModels
             playerService.Add(new Player(PlayerName, PlayerUserName, TeamSelected.id));
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
             OnPropertyChanged("displayedPlayers");
+        }
+
+        public void DeletePlayer(object parameter)
+        {
+            if(parameter is Player player)
+            {
+                playerService.Delete(player.id);
+                displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
+                OnPropertyChanged("displayedPlayers");
+            }
+            
+        }
+
+        public void DeleteTeam(object parameter)
+        {
+            if(parameter is Team team)
+            {
+                teamService.Delete(team.id);
+                displayedTeams = new ObservableCollection<Team>(teamService.GetAll());
+                OnPropertyChanged("displayedTeams");
+            }
         }
 
     }
