@@ -60,8 +60,6 @@ namespace src.ViewModels
         public ICommand goToScoresCommand { get; }
         public ICommand goToGamesCommand { get; }
         public PlayersViewModel() {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
-            PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
             teamService.Add(TeamSelected = new Team("Team 1"));
             teamService.Add(TeamSelected = new Team("Team 2"));
             OnAddNewTeam = new Command(AddNewTeam);

@@ -20,7 +20,6 @@ namespace src.ViewModels
         public DateTime newGameDate { get; set; }
 
         public bool _gameType;
-        public bool _oGameType;
 
         private Team _newGameTeam1;
         private Team _newGameTeam2;
@@ -44,7 +43,6 @@ namespace src.ViewModels
             AddGameCommand = new Command(AddGame);
             goToPlayersCommand = new Command(goToPlayers);
             goToScoresCommand = new Command(goToScores);
-
 
             gameType = true;
         }
@@ -77,21 +75,7 @@ namespace src.ViewModels
                 if (_gameType != value)
                 {
                     _gameType = value;
-                    oGameType = !value;
                     OnPropertyChanged(nameof(gameType));
-                }
-            }
-        }
-
-        public bool oGameType
-        {
-            get => _oGameType;
-            set
-            {
-                if (_oGameType != value)
-                {
-                    _oGameType = value;
-                    OnPropertyChanged(nameof(oGameType));
                 }
             }
         }
