@@ -6,12 +6,11 @@ using System.Collections.ObjectModel;
 
 namespace src.ViewModels
 {
-    public class PlayersViewModel : INotifyPropertyChanged
+    internal class PlayersViewModel : ViewModel
 
     {
         public ICommand OnAddNewTeam { get; }
         public ICommand OnAddNewPlayer { get; }
-        public event PropertyChangedEventHandler PropertyChanged;
 
 
         private string _playerName;
@@ -58,10 +57,6 @@ namespace src.ViewModels
             }
         }
         public PlayersViewModel() {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
-            PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
-            teamService.AddTeam("Team 1");
-            teamService.AddTeam("Team 2");
             OnAddNewTeam = new Command(AddNewTeam);
             OnAddNewPlayer = new Command(AddPlayer);
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAllPlayers());
@@ -70,7 +65,6 @@ namespace src.ViewModels
 
         public void AddNewTeam()
         {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             teamService.AddTeam(TeamName);
             displayedTeams = new ObservableCollection<Team>(teamService.GetTeams());
             OnPropertyChanged("displayedTeams");
@@ -79,20 +73,14 @@ namespace src.ViewModels
 
         public List<Team> GetTeams()
         {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             return teamService.GetTeams();
         }
     
         public void AddPlayer()
         {
-            PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
             playerService.AddPlayer(_playerName, _playerUserName, _teamSelected.id);
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAllPlayers());
             OnPropertyChanged("displayedPlayers");
-        }
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
     }
