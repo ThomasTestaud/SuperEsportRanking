@@ -11,19 +11,41 @@
             <HorizontalStackLayout
                 Padding="10"
                 Spacing="10">
-                            <Button
-                Text="Scores page"
-                Command="{Binding goToScoresCommand}" />
-                            <Button
-                Text="Games page"
-                Command="{Binding goToGamesCommand}" />
+                <Button
+                    Text="Players page"
+                    Command="{Binding goToPlayersCommand}" />
+                <Button
+                    Text="Games page"
+                    Command="{Binding goToGamesCommand}" />
             </HorizontalStackLayout>
 
             <Label
-                Text="Classements"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+                    Text="Scores"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1" />
 
+                <CollectionView
+                ItemsSource="{Binding Scores}"
+                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                Grid.Column="0"
+                                Text="{Binding Name}"
+                                Style="{StaticResource Body}" />
+                                <Label
+                                Grid.Column="1"
+                                Text="{Binding Score}"
+                                Style="{StaticResource Body}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 
