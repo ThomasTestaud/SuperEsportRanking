@@ -27,8 +27,8 @@ namespace src.ViewModels
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
 
-            displayedGames = new ObservableCollection<Game>(gameService.GetGames());
-            availableTeams = new ObservableCollection<Team>(teamService.GetTeams());
+            displayedGames = new ObservableCollection<Game>(gameService.GetAll());
+            availableTeams = new ObservableCollection<Team>(teamService.GetAll());
 
             //newGameDate = DateTime.Now;
 
@@ -53,12 +53,12 @@ namespace src.ViewModels
             GameService gameService = ServiceLocator.ServiceProvider.GetService<GameService>();
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
 
-            TeamWithPlayers teamWithPlayers = teamService.GetTeam(newGameTeam.id);
+            TeamWithPlayers teamWithPlayers = teamService.GetTeamWithPlayers(newGameTeam.id);
             List<Player> players = teamWithPlayers.players;
 
-            gameService.AddTeamGame(newGameName, newGameDate, players, newGameScore);
+            gameService.Add(new Game(newGameName, newGameDate,newGameScore, players ));
 
-            displayedGames = new ObservableCollection<Game>(gameService.GetGames());
+            displayedGames = new ObservableCollection<Game>(gameService.GetAll());
 
             OnPropertyChanged(nameof(displayedGames));
         }
@@ -71,8 +71,8 @@ namespace src.ViewModels
         private void DeleteGame(int id)
         {
             GameService gameService = ServiceLocator.ServiceProvider.GetService<GameService>();
-            gameService.DeleteGame(id);
-            displayedGames = new ObservableCollection<Game>(gameService.GetGames());
+            gameService.Delete(id);
+            displayedGames = new ObservableCollection<Game>(gameService.GetAll());
             OnPropertyChanged(nameof(displayedGames));
         }
 

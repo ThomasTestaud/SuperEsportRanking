@@ -14,6 +14,8 @@ namespace src.Models
         private string _name;
         private string _userName;
         private int _teamId;
+
+
         public int id
         {
             get => _id;
@@ -23,7 +25,6 @@ namespace src.Models
                 OnPropertyChanged("id");
             }
         }
-
         public string name
         {
             get => _name;
@@ -53,12 +54,15 @@ namespace src.Models
             }
         }
 
-        public Player(int id, string name, string userName, int teamId)
+        public Player(string name, string userName, int teamId)
         {
-            this.id = id;
             this.name = name;
             this.userName = userName;
             this.teamId = teamId;
+        }
+        public void SetId(int id)
+        {
+            this.id = id;
         }
 
         protected void OnPropertyChanged(string propertyName)

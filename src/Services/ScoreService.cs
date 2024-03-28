@@ -15,7 +15,7 @@ namespace src.Services
         {
             GameService gameService = ServiceLocator.ServiceProvider.GetService<GameService>();
 
-            var games = gameService.GetGames();
+            var games = gameService.GetAll();
 
 
 
