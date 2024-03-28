@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace src.Models
 {
-    public class Game : INotifyPropertyChanged
+    internal class Game : Model
     {
         private int _id;
         private string _name;

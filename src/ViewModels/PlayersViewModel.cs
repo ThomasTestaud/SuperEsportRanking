@@ -6,12 +6,11 @@ using System.Collections.ObjectModel;
 
 namespace src.ViewModels
 {
-    public class PlayersViewModel : INotifyPropertyChanged
+    internal class PlayersViewModel : ViewModel
 
     {
         public ICommand OnAddNewTeam { get; }
         public ICommand OnAddNewPlayer { get; }
-        public event PropertyChangedEventHandler PropertyChanged;
 
 
         private string _playerName;
@@ -70,7 +69,6 @@ namespace src.ViewModels
 
         public void AddNewTeam()
         {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             teamService.Add(TeamSelected = new Team(TeamName));
             displayedTeams = new ObservableCollection<Team>(teamService.GetAll());
             OnPropertyChanged("displayedTeams");
@@ -79,20 +77,14 @@ namespace src.ViewModels
 
         public List<Team> GetTeams()
         {
-            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             return teamService.GetAll();
         }
     
         public void AddPlayer()
         {
-            PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
             playerService.Add(new Player(PlayerName, PlayerUserName, TeamSelected.id));
             displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
             OnPropertyChanged("displayedPlayers");
-        }
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
     }

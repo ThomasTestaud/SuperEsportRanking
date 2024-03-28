@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace src.Models
 {
-    public class Player : INotifyPropertyChanged
+    internal class Player : Model
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private int _id;
         private string _name;
         private string _userName;
@@ -63,11 +62,6 @@ namespace src.Models
         public void SetId(int id)
         {
             this.id = id;
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

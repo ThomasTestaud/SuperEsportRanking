@@ -1,6 +1,6 @@
 ﻿using src.Services;
+using src.ViewModels;
 using src.Models;
-
 
 namespace src
 {
@@ -14,14 +14,14 @@ namespace src
 
             ServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton<ViewModels.GamesViewModel>();
-            services.AddSingleton<ViewModels.PlayersViewModel>();
-            services.AddSingleton<ViewModels.ScoresViewModel>();
+            services.AddSingleton<GamesViewModel>();
+            services.AddSingleton<PlayersViewModel>();
+            services.AddSingleton<ScoresViewModel>();
 
-            services.AddSingleton<Services.GameService>();
-            services.AddSingleton<Services.PlayerService>();
-            services.AddSingleton<Services.TeamService>();
-            services.AddSingleton<Services.ScoreService>();
+            services.AddSingleton<GameService>();
+            services.AddSingleton<PlayerService>();
+            services.AddSingleton<TeamService>();
+            services.AddSingleton<ScoreService>();
 
             var serviceProvider = services.BuildServiceProvider();
 
@@ -31,11 +31,14 @@ namespace src
             GameService gameService = ServiceLocator.ServiceProvider.GetService<GameService>();
             TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
             PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
-
+            
             Team team1 = teamService.Add(new Team("Team 1"));
             Team team2 = teamService.Add(new Team("Team 2"));
-            playerService.Add(new Player("Player 1", "userplayer1", team1.id));
-            playerService.Add(new Player("Player 2", "player2", team2.id));
+            playerService.Add(new Player("Player 1", "player1", team1.id));
+            playerService.Add(new Player("Player 2", "player2", team1.id));
+
+            playerService.AddPlayer("Player 3", "player3", team2.id);
+            playerService.AddPlayer("Player 4", "player4", team2.id);
 
 
             TeamWithPlayers teamWithPlayers = teamService.GetTeamWithPlayers(team1.id);
