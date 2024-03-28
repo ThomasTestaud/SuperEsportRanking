@@ -57,29 +57,33 @@ namespace src.ViewModels
             }
         }
         public PlayersViewModel() {
+            TeamService teamService = ServiceLocator.ServiceProvider.GetService<TeamService>();
+            PlayerService playerService = ServiceLocator.ServiceProvider.GetService<PlayerService>();
+            teamService.Add(TeamSelected = new Team("Team 1"));
+            teamService.Add(TeamSelected = new Team("Team 2"));
             OnAddNewTeam = new Command(AddNewTeam);
             OnAddNewPlayer = new Command(AddPlayer);
-            displayedPlayers = new ObservableCollection<Player>(playerService.GetAllPlayers());
-            displayedTeams = new ObservableCollection<Team>(teamService.GetTeams());
+            displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
+            displayedTeams = new ObservableCollection<Team>(teamService.GetAll());
         }
 
         public void AddNewTeam()
         {
-            teamService.AddTeam(TeamName);
-            displayedTeams = new ObservableCollection<Team>(teamService.GetTeams());
+            teamService.Add(TeamSelected = new Team(TeamName));
+            displayedTeams = new ObservableCollection<Team>(teamService.GetAll());
             OnPropertyChanged("displayedTeams");
         }
 
 
         public List<Team> GetTeams()
         {
-            return teamService.GetTeams();
+            return teamService.GetAll();
         }
     
         public void AddPlayer()
         {
-            playerService.AddPlayer(_playerName, _playerUserName, _teamSelected.id);
-            displayedPlayers = new ObservableCollection<Player>(playerService.GetAllPlayers());
+            playerService.Add(new Player(PlayerName, PlayerUserName, TeamSelected.id));
+            displayedPlayers = new ObservableCollection<Player>(playerService.GetAll());
             OnPropertyChanged("displayedPlayers");
         }
 

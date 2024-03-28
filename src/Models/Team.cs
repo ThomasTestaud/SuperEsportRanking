@@ -21,7 +21,6 @@ namespace src.Models
                 OnPropertyChanged("id");
             }
         }
-
         public string name
         {
             get => _name;
@@ -32,10 +31,13 @@ namespace src.Models
             }
         }
 
-        public Team(int id, string name)
+        public Team(string name)
+        {
+            this.name = name;
+        }
+        public void SetId(int id)
         {
             this.id = id;
-            this.name = name;
         }
 
     }
@@ -44,7 +46,7 @@ namespace src.Models
     {
         public List<Player> players { get; set; }
 
-        public TeamWithPlayers(int id, string name, List<Player> players) : base(id, name)
+        public TeamWithPlayers(string name, List<Player> players) : base(name)
         {
             this.players = players;
         }

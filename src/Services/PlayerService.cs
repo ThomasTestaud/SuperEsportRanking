@@ -7,14 +7,15 @@ using src.Models;
 
 namespace src.Services
 {
-    internal class PlayerService
+    internal class PlayerService : IService<Player>
     {
         private Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
-        public void AddPlayer(string name, string userName, int teamId)
+        public Player Add(Player player)
         {
-            Player player = new Player(_players.Count + 1, name, userName, teamId);
-            _players.Add(player.id, player);
+            player.SetId(_players.Count + 1);
+            _players.Add(_players.Count + 1, player);
+            return player;
         }
 
         public List<Player> GetPlayersForTeam(int teamId)
@@ -22,9 +23,23 @@ namespace src.Services
             return _players.Values.Where(p => p.teamId == teamId).ToList();
         }
 
-        public List<Player> GetAllPlayers()
+        public List<Player> GetAll()
         {
             return _players.Values.ToList();
+        }
+
+        public Player Get(int id)
+        {
+            return _players[id];
+        }
+
+        public void Update(int id, Player player)
+        {
+            _players[id] = player;
+        }
+        public void Delete(int id)
+        {
+            _players.Remove(id);
         }
 
     }

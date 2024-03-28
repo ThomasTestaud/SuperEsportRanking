@@ -7,30 +7,34 @@ using System.Threading.Tasks;
 
 namespace src.Services
 {
-    internal class GameService
+    internal class GameService : IService<Game>
     {
         private Dictionary<int, Game> _games = new Dictionary<int, Game>();
         
-        public void AddTeamGame(string name, DateTime date, List<Player> players, int score)
+        public Game Add(Game game)
         {
-            _games.Add(_games.Count + 1, new Game(_games.Count + 1, name, date, score, players));
+            game.SetId(_games.Count + 1);
+            _games.Add(_games.Count + 1, game);
+            return game;
         }
 
-        public List<Game> GetGames()
+        public List<Game> GetAll()
         {
             return _games.Values.ToList();
         }
 
-        public void DeleteGame(int id)
+        public void Delete(int id)
         {
             _games.Remove(id);
         }
 
-        public void UpdateGame(int id, string name, DateTime date, int score)
+        public void Update(int id, Game game)
         {
-            _games[id].name = name;
-            _games[id].date = date;
-            _games[id].score = score;
+            _games[id] = game;
+        }
+        public Game Get(int id)
+        {
+               return _games[id];
         }
     }
 }

@@ -46,9 +46,9 @@ namespace src.ViewModels
             TeamWithPlayers teamWithPlayers = teamService.GetTeam(newGameTeam.id);
             List<Player> players = teamWithPlayers.players;
 
-            gameService.AddTeamGame(newGameName, newGameDate, players, newGameScore);
+            gameService.Add(new Game(newGameName, newGameDate,newGameScore, players ));
 
-            displayedGames = new ObservableCollection<Game>(gameService.GetGames());
+            displayedGames = new ObservableCollection<Game>(gameService.GetAll());
 
             OnPropertyChanged(nameof(displayedGames));
         }
@@ -57,8 +57,8 @@ namespace src.ViewModels
 
         private void DeleteGame(int id)
         {
-            gameService.DeleteGame(id);
-            displayedGames = new ObservableCollection<Game>(gameService.GetGames());
+            gameService.Delete(id);
+            displayedGames = new ObservableCollection<Game>(gameService.GetAll());
             OnPropertyChanged(nameof(displayedGames));
         }
 

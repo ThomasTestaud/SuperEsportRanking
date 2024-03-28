@@ -12,6 +12,7 @@ namespace src.Models
         private int _score;
         private List<Player> _players;
 
+
         public int id
         {
             get => _id;
@@ -21,7 +22,6 @@ namespace src.Models
                 OnPropertyChanged(nameof(id));
             }
         }
-
         public string name
         {
             get => _name;
@@ -62,13 +62,24 @@ namespace src.Models
             }
         }
 
-        public Game(int id, string name, DateTime date, int score, List<Player> players)
+        public Game(string name, DateTime date, int score, List<Player> players)
         {
-            this._id = id;
             this._name = name;
             this._date = date;
             this._score = score;
             this._players = players;
+        }
+
+        public void SetId(int id)
+        {
+            this.id = id;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
